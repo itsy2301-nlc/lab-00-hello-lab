@@ -1,0 +1,47 @@
+name: lab-verify
+
+# Hello Lab CI — runs start.sh and verify.sh on a fresh Ubuntu runner.
+# If Alpine 3.23 is yanked or the command syntax changes, this fails before students see it.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 12 * * 2"  # Weekly Tuesday 12:00 UTC
+
+jobs:
+  verify:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Pull pinned image
+        run: docker pull alpine:3.23
+
+      - name: Run start.sh
+        run: |
+          chmod +x scripts/*.sh
+          ./scripts/start.sh
+
+      - name: Run verify.sh
+        run: ./scripts/verify.sh
+
+      - name: Show verify-report.json
+        if: always()
+        run: |
+          if [[ -f output/verify-report.json ]]; then
+            cat output/verify-report.json
+          else
+            echo "(no verify-report.json — start.sh/verify.sh exited before writing it)"
+          fi
+
+      - name: Upload artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hello-lab-output
+          path: output/

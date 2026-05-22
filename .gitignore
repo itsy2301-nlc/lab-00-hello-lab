@@ -1,0 +1,30 @@
+# Lab output
+/output/
+
+
+# OS detritus
+.DS_Store
+Thumbs.db
+
+# Editor detritus
+.idea/
+.vscode/
+*.swp
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Screencasts — students attach these to Canvas, not to git
+*.mp4
+*.mkv
+*.mov
+*.webm
+
+# Identifying artifacts — these go to Canvas only, never to a public GitHub fork.
+# The template version (AI_USE_LOG.template.md) is committed; the filled-in
+# AI_USE_LOG.md is NOT. See docs/privacy-and-submission.md.
+AI_USE_LOG.md
+verify-report.json

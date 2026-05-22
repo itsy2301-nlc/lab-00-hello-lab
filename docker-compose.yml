@@ -1,0 +1,33 @@
+name: lab-00-hello-lab
+
+# One tiny Alpine container that runs the identity commands and exits.
+# This is the smallest possible lab — its purpose is to prove the student's
+# Docker/Colima environment works end-to-end.
+
+services:
+  identity:
+    image: alpine:3.23
+    container_name: itsy2301-hello-lab
+    command:
+      - sh
+      - -c
+      - |
+        echo "=== ITSY-2301 Lab 00 — Hello Lab ==="
+        echo
+        echo "whoami:"
+        whoami
+        echo
+        echo "hostname:"
+        hostname
+        echo
+        echo "uname -a:"
+        uname -a
+        echo
+        echo "date:"
+        date -u +"%Y-%m-%dT%H:%M:%SZ"
+        echo
+        printf 'container id (first 12 chars): %.12s\n' "$$HOSTNAME"
+    environment:
+      - LAB=lab-00-hello-lab
+    mem_limit: 64m
+    cpus: 0.25
