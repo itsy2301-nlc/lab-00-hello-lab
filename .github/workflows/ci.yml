@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Pull pinned image
         run: docker pull alpine:3.23
